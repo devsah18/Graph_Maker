@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#08090d">
+  <title>MathFlow 3D — Interactive Mathematics</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="app">
+    <header class="topbar">
+      <div class="brand">
+        <div class="brand-mark">∑</div>
+        <div>
+          <div class="brand-name">MathFlow <span>3D</span></div>
+          <div class="brand-sub">Interactive mathematics laboratory</div>
+        </div>
+      </div>
+      <div class="top-actions">
+        <button class="ghost-btn" id="themeBtn" title="Toggle theme">☼</button>
+        <button class="ghost-btn" id="fullscreenBtn" title="Fullscreen">⛶</button>
+      </div>
+    </header>
+
+    <main class="layout">
+      <aside class="sidebar">
+        <div class="panel">
+          <div class="panel-title">GRAPH</div>
+          <div class="segmented">
+            <button class="segment active" data-mode="3d">3D Surface</button>
+            <button class="segment" data-mode="2d">2D Function</button>
+          </div>
+
+          <label class="field-label">Equation</label>
+          <div class="equation-wrap">
+            <span id="equationPrefix">z =</span>
+            <input id="equationInput" value="sin(sqrt(x^2+y^2))*2/(sqrt(x^2+y^2)+1)" spellcheck="false" autocomplete="off">
+          </div>
+          <div class="examples">
+            <button data-eq="x^2+y^2">Paraboloid</button>
+            <button data-eq="sin(x)*cos(y)">Wave</button>
+            <button data-eq="sqrt(x^2+y^2)">Cone</button>
+            <button data-eq="exp(-(x^2+y^2))">Gaussian</button>
+          </div>
+
+          <div class="control-row">
+            <label class="range-label">Range <span id="rangeValue">6</span></label>
+            <input type="range" id="rangeInput" min="2" max="12" step="1" value="6">
+          </div>
+          <div class="control-row">
+            <label class="range-label">Resolution <span id="resolutionValue">45</span></label>
+            <input type="range" id="resolutionInput" min="15" max="80" step="5" value="45">
+          </div>
+          <div class="control-row">
+            <label class="range-label">Animation <span id="speedValue">1.0×</span></label>
+            <input type="range" id="speedInput" min="0.2" max="3" step="0.1" value="1">
+          </div>
+
+          <div class="button-row">
+            <button class="primary-btn" id="plotBtn">▶ Plot</button>
+            <button class="secondary-btn" id="pauseBtn">Ⅱ Pause</button>
+            <button class="secondary-btn" id="resetBtn">↺ Reset</button>
+          </div>
+        </div>
+
+        <div class="panel">
+          <div class="panel-title">DISPLAY</div>
+          <div class="toggle-grid">
+            <label class="toggle"><input type="checkbox" id="gridToggle" checked><span></span> Grid</label>
+            <label class="toggle"><input type="checkbox" id="axesToggle" checked><span></span> Axes</label>
+            <label class="toggle"><input type="checkbox" id="pointsToggle"><span></span> Points</label>
+            <label class="toggle"><input type="checkbox" id="glowToggle" checked><span></span> Glow</label>
+          </div>
+        </div>
+
+        <div class="panel presets-panel">
+          <div class="panel-title">PRESETS</div>
+          <div class="preset-search">
+            <input id="presetSearch" placeholder="Search mathematics…" autocomplete="off">
+          </div>
+          <div id="presetList" class="preset-list"></div>
+        </div>
+      </aside>
+
+      <section class="workspace">
+        <div class="canvas-shell">
+          <canvas id="graphCanvas"></canvas>
+          <div class="canvas-overlay">
+            <div class="status-pill"><span class="status-dot"></span><span id="statusText">Ready</span></div>
+            <div class="coords" id="coords">x: 0.00 &nbsp; y: 0.00 &nbsp; z: 0.00</div>
+          </div>
+          <div class="hint">Drag to rotate · Scroll to zoom · Right-drag to pan</div>
+          <div class="error-box" id="errorBox"></div>
+        </div>
+
+        <div class="info-strip">
+          <div>
+            <div class="mini-label">CURRENT EQUATION</div>
+            <div class="big-equation" id="displayEquation">z = sin(√(x²+y²)) · 2/(√(x²+y²)+1)</div>
+          </div>
+          <div class="stats">
+            <div><span>TYPE</span><b id="typeStat">3D Surface</b></div>
+            <div><span>POINTS</span><b id="pointStat">0</b></div>
+            <div><span>TIME</span><b id="timeStat">0.0s</b></div>
+          </div>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/three@0.180.0/build/three.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/three@0.180.0/examples/js/controls/OrbitControls.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjs@14.0.1/lib/browser/math.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>
